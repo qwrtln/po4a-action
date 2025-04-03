@@ -35,7 +35,7 @@ Run [po4a](https://github.com/mquinson/po4a) in your GitHub workflows.
     args: "--no-update"
 ```
 
-### Upload pot and po files and show git changes
+### Update pot and po files and show git changes
 
 ```yaml
 - uses: actions/checkout@v4
