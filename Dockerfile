@@ -13,17 +13,12 @@ FROM perl:5.40-slim
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
       gettext \
-      libyaml-tiny-perl \
-      libextutils-cbuilder-perl \
-      libextutils-parsexs-perl \
       build-essential \
       liblocale-gettext-perl \
       libtext-wrapi18n-perl \
       libterm-readkey-perl \
       libsgmls-perl \
       opensp \
-      docbook \
-      libunicode-linebreak-perl \
       && \
     cpanm Module::Build && \
     cpanm ExtUtils::CChecker && \

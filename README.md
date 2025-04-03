@@ -35,7 +35,7 @@ Run [po4a](https://github.com/mquinson/po4a) in your GitHub workflows.
     args: "--no-update"
 ```
 
-### Update pot and po files and show git changes
+### Update pot and po files and list them with git
 
 ```yaml
 - uses: actions/checkout@v4
@@ -48,5 +48,5 @@ Run [po4a](https://github.com/mquinson/po4a) in your GitHub workflows.
     args: "--no-translations"
 
 - name: Show git changes
-  run: git status --porcelain translations
+  run: git status --porcelain
 ```
