@@ -42,6 +42,9 @@ RUN apt-get update && \
 
 COPY --from=builder /po4a-* /opt/po4a/
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+RUN groupadd -g 121 runner && \
+    useradd -u 1001 -g runner runner && \
+    chmod +x /entrypoint.sh
 
+USER runner
 ENTRYPOINT ["/entrypoint.sh"]
