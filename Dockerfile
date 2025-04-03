@@ -11,11 +11,11 @@ RUN apk add --no-cache wget && \
 FROM perl:5.40-slim
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-      gettext \
-      libsyntax-keyword-try-perl \
+    apt-get install -y --no-install-recommends gettext && \
+    cpanm \
+      YAML::Tiny \
+      Syntax::Keyword::Try \
       && \
-    cpanm YAML::Tiny && \
     apt-get clean &&  \
     rm -rf /var/lib/apt/lists/*
 
