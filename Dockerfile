@@ -11,13 +11,34 @@ RUN apk add --no-cache wget && \
 FROM perl:5.40-slim
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends gettext && \
-    cpanm \
-      YAML::Tiny \
-      Syntax::Keyword::Try \
+    apt-get install -y --no-install-recommends \
+      gettext \
+      libyaml-tiny-perl \
+      libextutils-cbuilder-perl \
+      libextutils-parsexs-perl \
+      build-essential \
+      liblocale-gettext-perl \
+      libtext-wrapi18n-perl \
+      libterm-readkey-perl \
+      libsgmls-perl \
+      opensp \
+      docbook \
+      libunicode-linebreak-perl \
       && \
-    apt-get clean &&  \
-    rm -rf /var/lib/apt/lists/*
+    cpanm Module::Build && \
+    cpanm ExtUtils::CChecker && \
+    cpanm XS::Parse::Keyword && \
+    cpanm Syntax::Keyword::Try && \
+    cpanm YAML::Tiny && \
+    cpanm Unicode::GCString && \
+    apt-get remove -y \
+      build-essential \
+      libextutils-cbuilder-perl \
+      libextutils-parsexs-perl \
+      && \
+    apt-get autoremove -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* ~/.cpanm
 
 COPY --from=builder /po4a-* /opt/po4a/
 COPY entrypoint.sh /entrypoint.sh
