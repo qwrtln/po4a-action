@@ -1,17 +1,16 @@
-name: Publish po4a image
+name: Publish po4a images
 
 on:
-  workflow_dispatch:
-    inputs:
-      version:
-        description: 'po4a version to build'
-        required: true
-        default: '0.73'
+  push:
+    branches: [main]
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    name: Publish po4a image v${{ inputs.version }}
+    strategy:
+      matrix:
+        version: ['0.69', '0.70', '0.71', '0.72', '0.73']
+    name: Publish po4a image v${{ matrix.version }}
     permissions:
       contents: read
       packages: write
@@ -37,6 +36,6 @@ jobs:
           file: ./Dockerfile
           push: true
           build-args: |
-            PO4A_VERSION=${{ inputs.version }}
+            PO4A_VERSION=${{ matrix.version }}
           tags: |
-            ghcr.io/${{ github.repository_owner }}/po4a-action:${{ inputs.version }}
+            ghcr.io/${{ github.repository_owner }}/po4a-action:${{ matrix.version }}
