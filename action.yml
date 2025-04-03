@@ -1,0 +1,28 @@
+name: 'po4a Action'
+description: 'Generate translations using po4a tool'
+branding:
+  icon: 'globe'
+  color: 'blue'
+inputs:
+  version:
+    description: 'Version of PO4A to use'
+    required: true
+  config:
+    description: 'Path to po4a configuration file'
+    required: true
+    default: 'po4a.cfg'
+  args:
+    description: 'Additional arguments to pass to po4a'
+    required: false
+    default: ''
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Run PO4A in Docker
+      shell: bash
+      run: |
+        docker pull ghcr.io/qwrtln/po4a-action:${{ inputs.version }}
+        docker run --rm -v ${{ github.workspace }}:/github/workspace -w /github/workspace \
+          ghcr.io/qwrtln/po4a-action:${{ inputs.version }} \
+          ${{ inputs.config }} ${{ inputs.args }}
