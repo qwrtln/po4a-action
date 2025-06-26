@@ -22,7 +22,7 @@ runs:
     - name: Run PO4A in Docker
       shell: bash
       run: |
-        docker pull ghcr.io/qwrtln/po4a-action:${{ inputs.version }}
+        docker pull ghcr.io/qwrtln/po4a-action:${{ inputs.version }}-1.1
         docker run --rm -v ${{ github.workspace }}:/github/workspace -w /github/workspace \
-          ghcr.io/qwrtln/po4a-action:${{ inputs.version }} \
+          ghcr.io/qwrtln/po4a-action:${{ inputs.version }}-1.1 \
           ${{ inputs.config }} ${{ inputs.args }}
