@@ -18,6 +18,7 @@ COPY --from=po4a-builder /po4a /opt/po4a
 
 RUN apk --no-cache add \
     bash \
+    diffutils \
     gettext \
     gettext-dev \
     opensp \
