@@ -25,6 +25,7 @@ RUN apk --no-cache add \
     perl-dev \
     perl-unicode-linebreak \
     perl-yaml \
+    && [[ -f /usr/bin/locale ]] || ln -s /usr/bin/gettext /usr/bin/locale \
     && apk add --no-cache --virtual .build-deps \
         build-base \
         perl-app-cpanminus \
