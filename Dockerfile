@@ -1,14 +1,13 @@
 FROM alpine:latest AS po4a-builder
 
-ARG PO4A_VERSION=0.73
-ENV PO4A_GH_URL=https://github.com/mquinson/po4a/releases/download
+ENV PO4A_VERSION=0.73 PO4A_GH_URL=https://github.com/mquinson/po4a/releases/download
 
-RUN apk add --no-cache wget
-RUN wget ${PO4A_GH_URL}/v${PO4A_VERSION}/po4a-${PO4A_VERSION}.tar.gz
-RUN mkdir -p /po4a
-RUN tar -xf po4a-${PO4A_VERSION}.tar.gz -C /po4a --strip-components=1
-RUN rm po4a-${PO4A_VERSION}.tar.gz
-RUN apk del --purge wget
+RUN apk add --no-cache wget && \
+    wget ${PO4A_GH_URL}/v${PO4A_VERSION}/po4a-${PO4A_VERSION}.tar.gz && \
+    mkdir -p /po4a && \
+    tar -xf po4a-${PO4A_VERSION}.tar.gz -C /po4a --strip-components=1 && \
+    rm po4a-${PO4A_VERSION}.tar.gz && \
+    apk del --purge wget
 
 FROM alpine:latest
 
