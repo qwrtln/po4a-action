@@ -1,45 +1,57 @@
-FROM alpine:3.18 AS builder
+FROM alpine:latest AS po4a-builder
 
-ARG PO4A_VERSION
+ARG PO4A_VERSION=0.73
 ENV PO4A_GH_URL=https://github.com/mquinson/po4a/releases/download
 
 RUN apk add --no-cache wget && \
     wget --quiet ${PO4A_GH_URL}/v${PO4A_VERSION}/po4a-${PO4A_VERSION}.tar.gz && \
-    tar -xf po4a-${PO4A_VERSION}.tar.gz && \
-    rm po4a-${PO4A_VERSION}.tar.gz
+    mkdir -p /po4a && \
+    tar -xf po4a-${PO4A_VERSION}.tar.gz -C /po4a --strip-components=1 && \
+    rm po4a-${PO4A_VERSION}.tar.gz && \
+    apk del --purge wget
 
-FROM perl:5.40-slim
+FROM alpine:latest
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-      gettext \
-      build-essential \
-      liblocale-gettext-perl \
-      libtext-wrapi18n-perl \
-      libterm-readkey-perl \
-      libsgmls-perl \
-      opensp \
-      && \
-    cpanm Module::Build && \
-    cpanm ExtUtils::CChecker && \
-    cpanm XS::Parse::Keyword && \
-    cpanm Syntax::Keyword::Try && \
-    cpanm YAML::Tiny && \
-    cpanm Unicode::GCString && \
-    apt-get remove -y \
-      build-essential \
-      libextutils-cbuilder-perl \
-      libextutils-parsexs-perl \
-      && \
-    apt-get autoremove -y && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* ~/.cpanm
+ENV PATH="/opt/po4a:${PATH}" \
+    PERL5LIB="/opt/po4a/lib"
 
-COPY --from=builder /po4a-* /opt/po4a/
+COPY --from=po4a-builder /po4a /opt/po4a
+
+RUN apk --no-cache add \
+    bash \
+    gettext \
+    gettext-dev \
+    opensp \
+    perl \
+    perl-dev \
+    perl-unicode-linebreak \
+    perl-yaml \
+    && apk add --no-cache --virtual .build-deps \
+        build-base \
+        perl-app-cpanminus \
+    && wget -q https://cpan.metacpan.org/authors/id/R/RA/RAAB/SGMLSpm-1.1.tar.gz \
+    && tar -xzf SGMLSpm-1.1.tar.gz \
+    && cd SGMLSpm-1.1 \
+    && perl Makefile.PL \
+    && make install \
+    && cd .. \
+    && rm -rf SGMLSpm-1.1 SGMLSpm-1.1.tar.gz \
+    && CFLAGS="-I/usr/include" LIBS="-L/usr/lib -lintl" cpanm --no-wget Locale::gettext \
+    && cpanm --no-wget Text::WrapI18N \
+    && cpanm --no-wget Term::ReadKey \
+    && cpanm --no-wget Pod::Parser \
+    && cpanm --no-wget YAML::Tiny \
+    && cpanm --no-wget Unicode::GCString \
+    && cpanm --no-wget Syntax::Keyword::Try \
+    && cpanm --no-wget Encode::Locale \
+    && apk del .build-deps \
+    && rm -rf /var/cache/apk/* /var/tmp/* /root/.cpanm \
+    && addgroup -g 121 runner \
+    && adduser -u 1001 -G runner -s /bin/bash -D runner
+
 COPY entrypoint.sh /entrypoint.sh
-RUN groupadd -g 121 runner && \
-    useradd -u 1001 -g runner runner && \
-    chmod +x /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 USER runner
+WORKDIR /data
 ENTRYPOINT ["/entrypoint.sh"]
