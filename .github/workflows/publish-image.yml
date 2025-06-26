@@ -38,4 +38,4 @@ jobs:
           build-args: |
             PO4A_VERSION=${{ matrix.version }}
           tags: |
-            ghcr.io/${{ github.repository_owner }}/po4a-action:${{ matrix.version }}
+            ghcr.io/${{ github.repository_owner }}/po4a-action:${{ matrix.version }}-1.1
