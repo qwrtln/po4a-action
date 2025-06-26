@@ -54,5 +54,4 @@ COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 USER runner
-WORKDIR /data
 ENTRYPOINT ["/entrypoint.sh"]

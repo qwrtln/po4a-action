@@ -3,15 +3,13 @@ name: Publish po4a images
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: ['0.73-1.1']
+        version: ['0.69', '0.70', '0.71', '0.72', '0.73']
     name: Publish po4a image v${{ matrix.version }}
     permissions:
       contents: read
@@ -40,4 +38,4 @@ jobs:
           build-args: |
             PO4A_VERSION=${{ matrix.version }}
           tags: |
-            ghcr.io/${{ github.repository_owner }}/po4a-action:${{ matrix.version }}
+            ghcr.io/${{ github.repository_owner }}/po4a-action:${{ matrix.version }}-1.1
