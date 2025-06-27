@@ -3,8 +3,6 @@ name: Publish po4a images
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
 
 jobs:
   build-and-push:
