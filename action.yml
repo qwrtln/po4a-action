@@ -15,6 +15,10 @@ inputs:
     description: 'Additional arguments to pass to po4a'
     required: false
     default: ''
+  language:
+    description: 'Specific language to process (e.g., pl, fr, de). Processes all languages if not specified.'
+    required: false
+    default: ''
 
 runs:
   using: 'composite'
@@ -22,7 +26,7 @@ runs:
     - name: Run PO4A in Docker
       shell: bash
       run: |
-        docker pull ghcr.io/qwrtln/po4a-action:${{ inputs.version }}-1.1
+        docker pull ghcr.io/qwrtln/po4a-action:${{ inputs.version }}-1.2
         docker run --rm -v ${{ github.workspace }}:/github/workspace -w /github/workspace \
-          ghcr.io/qwrtln/po4a-action:${{ inputs.version }}-1.1 \
-          ${{ inputs.config }} ${{ inputs.args }}
+          ghcr.io/qwrtln/po4a-action:${{ inputs.version }}-1.2 \
+          ${{ inputs.config }} "${{ inputs.args }}" "${{ inputs.language }}"
