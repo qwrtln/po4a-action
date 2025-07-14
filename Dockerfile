@@ -1,6 +1,6 @@
 FROM alpine:latest AS po4a-builder
 
-ARG PO4A_VERSION=0.74
+ARG PO4A_VERSION
 ENV PO4A_GH_URL=https://github.com/mquinson/po4a/releases/download
 
 RUN <<EOF
