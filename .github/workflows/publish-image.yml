@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: ['0.69', '0.70', '0.71', '0.72', '0.73']
+        version: ['0.69', '0.70', '0.71', '0.72', '0.73', '0.74']
     name: Publish po4a image v${{ matrix.version }}
     permissions:
       contents: read
