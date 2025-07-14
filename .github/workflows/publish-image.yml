@@ -3,6 +3,8 @@ name: Publish po4a images
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
   build-and-push:
@@ -34,7 +36,7 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          push: true
+          push: ${{ github.event_name != 'pull_request' }}
           build-args: |
             PO4A_VERSION=${{ matrix.version }}
           tags: |
