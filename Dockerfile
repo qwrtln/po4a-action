@@ -39,7 +39,7 @@ RUN <<EOF
       perl-app-cpanminus
 
   CFLAGS="-I/usr/include" LIBS="-L/usr/lib -lintl" cpanm --no-wget Locale::gettext
-  cpanm --no-wget SGMLS
+  cpanm https://cpan.metacpan.org/authors/id/R/RA/RAAB/SGMLSpm-1.1.tar.gz
   cpanm --no-wget Text::WrapI18N
   cpanm --no-wget Term::ReadKey
   cpanm --no-wget Pod::Parser
