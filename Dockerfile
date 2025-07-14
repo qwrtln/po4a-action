@@ -1,6 +1,7 @@
 FROM alpine:latest AS po4a-builder
 
-ENV PO4A_VERSION=0.73 PO4A_GH_URL=https://github.com/mquinson/po4a/releases/download
+ARG PO4A_VERSION
+ENV PO4A_GH_URL=https://github.com/mquinson/po4a/releases/download
 
 RUN <<EOF
   apk add --no-cache wget

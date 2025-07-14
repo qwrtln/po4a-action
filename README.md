@@ -10,7 +10,7 @@ Run [po4a](https://github.com/mquinson/po4a) in your GitHub workflows.
 - uses: qwrtln/po4a-action@v1.2
   with:
     # Version of po4a to use.
-    # 0.69-0.73 are supported.
+    # 0.69-0.74 are supported.
     # Required
     version:
 
@@ -36,7 +36,7 @@ Run [po4a](https://github.com/mquinson/po4a) in your GitHub workflows.
 ```yaml
 - uses: qwrtln/po4a-action@v1.2
   with:
-    version: "0.73"
+    version: "0.74"
     config: "po4a.cfg"
     args: "--no-update"
 ```
@@ -46,7 +46,7 @@ Run [po4a](https://github.com/mquinson/po4a) in your GitHub workflows.
 ```yaml
 - uses: qwrtln/po4a-action@v1.2
   with:
-    version: "0.73"
+    version: "0.74"
     config: "po4a.cfg"
     args: "--no-update"
     language: "fr"
@@ -60,7 +60,7 @@ Run [po4a](https://github.com/mquinson/po4a) in your GitHub workflows.
 - name: Run po4a
   uses: qwrtln/po4a-action@v1.2
   with:
-    version: "0.73"
+    version: "0.74"
     config: "po4a.cfg"
     args: "--no-translations"
 
@@ -81,7 +81,7 @@ steps:
 - name: Run po4a for ${{ matrix.language }} language
   uses: qwrtln/po4a-action@v1.2
   with:
-    version: "0.73"
+    version: "0.74"
     config: "po4a.cfg"
     language: ${{ matrix.language }}
 ```
