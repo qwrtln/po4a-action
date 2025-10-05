@@ -11,8 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: ['0.69', '0.70', '0.71', '0.72', '0.73', '0.74']
-    name: Publish po4a image v${{ matrix.version }}
+        po4a-version: ['0.74']
+    name: Publish po4a image v${{ matrix.po4a-version }}
     permissions:
       contents: read
       packages: write
@@ -38,6 +38,6 @@ jobs:
           file: ./Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
           build-args: |
-            PO4A_VERSION=${{ matrix.version }}
+            PO4A_VERSION=${{ matrix.po4a-version }}
           tags: |
-            ghcr.io/${{ github.repository_owner }}/po4a-action:${{ matrix.version }}-1.2
+            ghcr.io/${{ github.repository_owner }}/po4a-action:${{ matrix.po4a-version }}-1.4
