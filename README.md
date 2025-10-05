@@ -7,11 +7,11 @@ Run [po4a](https://github.com/mquinson/po4a) in your GitHub workflows.
 ### Inputs
 
 ```yaml
-- uses: qwrtln/po4a-action@v1.4
+- uses: qwrtln/po4a-action@v1.3
   with:
     # Version of po4a to use.
-    # As of 1.4, only 0.74 is supported.
-    # Use 1.3 if you need versions 0.69-0.73.
+    # As of 1.3, only 0.74 is supported.
+    # Use 1.2 if you need versions 0.69-0.73.
     # Required
     version:
 
@@ -34,7 +34,7 @@ Run [po4a](https://github.com/mquinson/po4a) in your GitHub workflows.
 ### Generate translations for all languages
 
 ```yaml
-- uses: qwrtln/po4a-action@v1.4
+- uses: qwrtln/po4a-action@v1.3
   with:
     version: "0.74"
     config: "po4a.cfg"
@@ -44,7 +44,7 @@ Run [po4a](https://github.com/mquinson/po4a) in your GitHub workflows.
 ### Generate translations for a specific language only
 
 ```yaml
-- uses: qwrtln/po4a-action@v1.4
+- uses: qwrtln/po4a-action@v1.3
   with:
     version: "0.74"
     config: "po4a.cfg"
@@ -58,7 +58,7 @@ Run [po4a](https://github.com/mquinson/po4a) in your GitHub workflows.
 - uses: actions/checkout@v4
 
 - name: Run po4a
-  uses: qwrtln/po4a-action@v1.4
+  uses: qwrtln/po4a-action@v1.3
   with:
     version: "0.74"
     config: "po4a.cfg"
@@ -79,7 +79,7 @@ steps:
 - uses: actions/checkout@v4
 
 - name: Run po4a for ${{ matrix.language }} language
-  uses: qwrtln/po4a-action@v1.4
+  uses: qwrtln/po4a-action@v1.3
   with:
     version: "0.74"
     config: "po4a.cfg"
