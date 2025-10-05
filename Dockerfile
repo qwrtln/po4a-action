@@ -25,7 +25,6 @@ RUN <<EOF
       diffutils \
       gettext \
       gettext-dev \
-      git \
       opensp \
       perl \
       perl-dev \

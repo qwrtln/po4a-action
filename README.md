@@ -7,10 +7,11 @@ Run [po4a](https://github.com/mquinson/po4a) in your GitHub workflows.
 ### Inputs
 
 ```yaml
-- uses: qwrtln/po4a-action@v1.2
+- uses: qwrtln/po4a-action@v1.3
   with:
     # Version of po4a to use.
-    # 0.69-0.74 are supported.
+    # As of 1.3, only 0.74 is supported.
+    # Use 1.2 if you need versions 0.69-0.73.
     # Required
     version:
 
@@ -23,9 +24,8 @@ Run [po4a](https://github.com/mquinson/po4a) in your GitHub workflows.
     args:
 
     # Specific language to process (e.g., pl, fr, de).
-    # If not specified, processes all languages defined in po4a.cfg.
-    # Works by replacing [po4a_langs] ... line with [po4a_langs] <language>
-    # Optional. Defaults to nothing (processing all languages).
+    # Works by passing --target-lang argument to po4a.
+    # Optional. Defaults to all languages specified in configuration file.
     language:
 ```
 
@@ -34,7 +34,7 @@ Run [po4a](https://github.com/mquinson/po4a) in your GitHub workflows.
 ### Generate translations for all languages
 
 ```yaml
-- uses: qwrtln/po4a-action@v1.2
+- uses: qwrtln/po4a-action@v1.3
   with:
     version: "0.74"
     config: "po4a.cfg"
@@ -44,7 +44,7 @@ Run [po4a](https://github.com/mquinson/po4a) in your GitHub workflows.
 ### Generate translations for a specific language only
 
 ```yaml
-- uses: qwrtln/po4a-action@v1.2
+- uses: qwrtln/po4a-action@v1.3
   with:
     version: "0.74"
     config: "po4a.cfg"
@@ -58,7 +58,7 @@ Run [po4a](https://github.com/mquinson/po4a) in your GitHub workflows.
 - uses: actions/checkout@v4
 
 - name: Run po4a
-  uses: qwrtln/po4a-action@v1.2
+  uses: qwrtln/po4a-action@v1.3
   with:
     version: "0.74"
     config: "po4a.cfg"
@@ -79,7 +79,7 @@ steps:
 - uses: actions/checkout@v4
 
 - name: Run po4a for ${{ matrix.language }} language
-  uses: qwrtln/po4a-action@v1.2
+  uses: qwrtln/po4a-action@v1.3
   with:
     version: "0.74"
     config: "po4a.cfg"
